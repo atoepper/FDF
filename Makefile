@@ -6,7 +6,7 @@
 #    By: atoepper <atoepper@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 14:47:59 by atoepper          #+#    #+#              #
-#    Updated: 2025/08/11 15:25:09 by atoepper         ###   ########.fr        #
+#    Updated: 2025/10/30 16:56:22 by atoepper         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,18 +19,21 @@ NAME   = fdf
 ### SOURCE FILES ###
 SRC_DIR = srcs
 INC_DIR = incl
-SRC = drawing.c \
-			colors.c \
-			colors_basic.c \
-			hooks.c \
-			hooks_2.c \
-			init.c \
-			fdf.c \
-			memory.c \
-			parse.c \
-			calculus.c \
-			projection.c \
-			main.c 
+SRC = calculus.c \
+		colors.c \
+		colors_basic.c \
+		drawing.c \
+		fdf.c \
+		hooks_2.c \
+		hooks.c \
+		init.c \
+		memory.c \
+		parse.c \
+		parse_map.c \
+		projection.c \
+		utils.c \
+		vector.c \
+		main.c 
 SRC := $(patsubst %.c, $(SRC_DIR)/%.c, $(SRC))
 
 ### COMPILATION ###

@@ -6,7 +6,7 @@
 /*   By: atoepper <atoepper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 14:12:50 by atoepper          #+#    #+#             */
-/*   Updated: 2024/04/29 17:03:57 by atoepper         ###   ########.fr       */
+/*   Updated: 2025/10/30 17:06:22 by atoepper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <stdbool.h>
+
+# define SUCCESS 0
+# define FAILURE 1
 
 # define HEIGHT 1080
 # define WIDTH	1920
@@ -68,26 +71,39 @@ typedef struct s_map
 {
 	t_img	img;
 	char	*raw;
-	t_index	max;
 	short	max_z;
 	short	min_z;
+	t_index	max;
 	t_vec	zoom;
 	t_vec	rot;
 	t_vec	offset;
 	t_vec	center;
-	t_vec	**transf;
 	t_vec	**proj;
-	double	**h;
+	long	**h;
 	long	**col;
-	long	**col_mod;
 	bool	colored;
 }				t_map;
 
-/* parse */
-int			read_map(int fd, t_map *map);
-int			parse_line(char *line);
-bool		parse_digit(char *s, unsigned *i);
-bool		parse_color(char *s, unsigned *i);
+
+// typedef struct s_map
+// {
+// 	t_img	img;
+// 	char	*raw;
+// 	t_index	max;
+// 	short	max_z;
+// 	short	min_z;
+// 	t_vec	zoom;
+// 	t_vec	rot;
+// 	t_vec	offset;
+// 	t_vec	center;
+// 	t_vec	**transf;
+// 	t_vec	**proj;
+// 	double	**h;
+// 	long	**col;
+// 	long	**col_mod;
+// 	bool	colored;
+// }				t_map;
+
 
 /* fdf */
 int		close_window(t_map *map);
@@ -122,23 +138,39 @@ int		difx(t_vec a, t_vec b);
 int		dify(t_vec a, t_vec b);
 int		ft_round(double x);
 
-/* projection */
-int		transformation(t_map *map);
-t_vec	rot(t_vec vec, t_vec rot, t_vec offset, t_vec zoom);
-
 /* memory */
 int		malloc_map(t_map *map);
 void	free_map(t_map *map);
 int		free_fail(char *line, int fd);
 void	free_map_arr(t_map *map);
+void 	free_raw(char ***raw);
+long	**add_row(long **arr, int old_rows, int new_cols);
 
 /* init */
 void	get_height_color(t_map *map, char *raw);
 long	get_colors(t_map *map, char **raw);
-int		init_map(t_map *map);
+// int		init_map(t_map *map);
 void	set_default(t_map *map);
 
-/* main */
+/* vector */
+void	set_vector(t_vec *v, double x, double y, double z);
+
+/* utils */
+void	print_2d_arr(long **arr);
+int		arr_size(char **arr);
+
+/* parse */
+// int			read_map(int fd, t_map *map);
+// int			parse_line(char *line);
+// bool		parse_digit(char *s, unsigned *i);
+// bool		parse_color(char *s, unsigned *i);
+
+/* parse_map */
+int 	parse_map (int fd, t_map *map);
+
+/* projection */
+int		transformation(t_map *map);
+t_vec	rot(t_vec vec, t_vec rot, t_vec offset, t_vec zoom);
 
 /* test */
 void	print_map(t_map *map);
