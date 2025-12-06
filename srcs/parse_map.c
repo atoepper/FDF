@@ -19,15 +19,15 @@ static int parse_token(t_map *map, char **raw, int pos)
 	if (!token)
 		return (ft_putstr_fd("Fatal error in ft_split\n", 2), FAILURE);
 	if (is_numeric(token[0]))
-		map->h[map->max.y][pos - 1] = ft_atoi(token[0]);
+		map->h[map->max.y - 1][pos - 1] = ft_atoi(token[0]);
 	else
 		return (free_raw(&token), FAILURE);
 	if (arr_size(token) == 1)
-		map->col[map->max.y][pos - 1] = 0;
+		map->col[map->max.y  - 1][pos - 1] = 0;
 	else if (arr_size(token) == 2) 
 	{
 		if (is_color(token[1]))
-			map->col[map->max.y][pos - 1] = get_color(token[1]);
+			map->col[map->max.y  - 1][pos - 1] = get_color(token[1]);
 		else
 			return (free_raw(&token), FAILURE);
 	}
@@ -62,6 +62,7 @@ static int parse_line(char *line, t_map *map)
 	if (check_line_len(map, len) == FAILURE || 
 		add_rows_to_map(map, len) == FAILURE)
 			return (free_raw(&raw), FAILURE);
+	map->max.y++;
 	while (len > 0)
 	{
 		if (parse_token(map, raw, len--) == FAILURE)
@@ -70,7 +71,6 @@ static int parse_line(char *line, t_map *map)
 			return (free_raw(&raw), FAILURE);
 		}
 	}
-	map->max.y++;
 	free_raw(&raw);
 	return (SUCCESS);
 }
