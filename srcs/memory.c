@@ -6,7 +6,7 @@
 /*   By: atoepper <atoepper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:37:29 by atoepper          #+#    #+#             */
-/*   Updated: 2025/12/06 10:28:16 by atoepper         ###   ########.fr       */
+/*   Updated: 2025/12/06 14:03:18 by atoepper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,8 @@ void	free_map(t_map *map)
 	if (map->raw)
 		free(map->raw);
 	i = -1;
-	print_map(map);
 	while (++i < map->max.y)
 	{
-		ft_printf("Debug free i: %d\n", i);
 		if (map->proj != NULL && map->proj[i])
 			free(map->proj[i]);
 		if (map->h != NULL && map->h[i])
@@ -42,40 +40,6 @@ void	free_map(t_map *map)
 	}
 	free_map_arr(map);
 }
-
-
-// int	malloc_map(t_map *map)
-// {
-// 	t_index	i;
-
-// 	map->proj = (t_vec **)malloc(sizeof(t_vec *) * map->max.y);
-// 	map->h = (double **)malloc(sizeof(double *) * map->max.y);
-// 	map->col = (long **)malloc(sizeof(long *) * map->max.y);
-// 	if (!map->proj || !map->h || !map->col)
-// 		return (0);
-// 	i.y = -1;
-// 	while (++i.y < map->max.y)
-// 	{
-// 		map->proj[i.y] = (t_vec *)malloc(sizeof(t_vec) * map->max.x);
-// 		map->h[i.y] = (double *)malloc(sizeof(double) * map->max.x);
-// 		map->col[i.y] = (long *)malloc(sizeof(long) * map->max.x);
-// 		if (!map->proj[i.y] || !map->h[i.y]
-// 			|| !map->col[i.y])
-// 			return (0);
-// 	}
-// 	return (1);
-// }
-
-// int	free_fail(char *line, int fd)
-// {
-// 	while (line)
-// 	{
-// 		free(line);
-// 		line = get_next_line(fd);
-// 	}
-// 	close(fd);
-// 	return (0);
-// }
 
 long **add_row(long **arr, int old_rows, int new_cols)
 {
