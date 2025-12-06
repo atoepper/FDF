@@ -6,7 +6,7 @@
 /*   By: atoepper <atoepper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 14:12:50 by atoepper          #+#    #+#             */
-/*   Updated: 2025/12/05 15:51:14 by atoepper         ###   ########.fr       */
+/*   Updated: 2025/12/06 10:27:26 by atoepper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ void	set_vector(t_vec *v, double x, double y, double z);
 /* utils */
 void	print_2d_arr(long **arr, size_t x, size_t y);
 int		arr_size(char **arr);
+void	print_map(t_map *map);
 
 /* parse */
 bool	is_numeric(char *s);
