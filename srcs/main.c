@@ -6,7 +6,7 @@
 /*   By: atoepper <atoepper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:07:13 by atoepper          #+#    #+#             */
-/*   Updated: 2025/10/30 17:28:35 by atoepper         ###   ########.fr       */
+/*   Updated: 2025/12/05 14:48:20 by atoepper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,30 +56,26 @@ int	main(int argc, char **argv)
 {
 	int		fd;
 	t_map	map;
-	long	**example = NULL;
+	// long	**example = NULL;
 
 	ft_printf("Open file...\n");
 	fd = open_file(argc, argv);
 	ft_printf("Initialize map...\n");
 	init_map(&map);
 	ft_printf("Parse file...\n");
-	// if (!parse_map(fd, &map))
-	// 	return(free_map(&map), EXIT_FAILURE);
+	if (parse_map(fd, &map) == FAILURE)
+		return(free_map(&map), EXIT_FAILURE); // free remainder of gnl???
 	// if (fdf(&map) == FAILURE)
 	// {
 	// 	ft_putendl_fd("Window's creation failed", 2);
 	// 	free_map(&map);
 	// 	return (free_map(&map), EXIT_FAILURE);
 	// }
-	// print_2d_arr(map.h);
-	// print_2d_arr(map.col);
-	example = add_row(example, 0, 5);
-	example[0][0] = 0;
-	example[0][1] = 1;
-	example[0][2] = 2;
-	example[0][3] = 3;
-	example[0][4] = 4;
-	print_2d_arr(example);
+	ft_printf("heights\n");
+	print_2d_arr(map.h, map.max.x, map.max.y);
+	ft_printf("colors\n");
+	print_2d_arr(map.col, map.max.x, map.max.y);
+
 	free_map(&map);
 	return (EXIT_SUCCESS);
 }
