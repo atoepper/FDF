@@ -1,18 +1,20 @@
 #include "../incl/fdf.h"
 
-void	print_2d_arr(long **arr)
+void	print_2d_arr(long **arr, size_t x, size_t y)
 {
 	size_t	i;
 	size_t	j;
 
 	if (!arr)
+	{
+		ft_printf("Empty Array\n");
 		return;
-	
+	}
 	i = 0;
-	while (arr[i])
+	while (i < y)
 	{
 		j = 0;
-		while (arr[i][j])
+		while (j < x)
 		{
 			ft_printf("%d\t", arr[i][j]);
 			j++;

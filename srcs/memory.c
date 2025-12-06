@@ -6,7 +6,7 @@
 /*   By: atoepper <atoepper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:37:29 by atoepper          #+#    #+#             */
-/*   Updated: 2025/10/30 16:50:50 by atoepper         ###   ########.fr       */
+/*   Updated: 2025/12/05 14:47:56 by atoepper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ void	free_map(t_map *map)
 	i = -1;
 	while (++i < map->max.y)
 	{
-		if (map->proj[i])
+		if (map->proj != NULL && map->proj[i])
 			free(map->proj[i]);
-		if (map->h[i])
+		if (map->h != NULL && map->h[i])
 			free(map->h[i]);
-		if (map->col[i])
+		if (map->col != NULL && map->col[i])
 			free(map->col[i]);
 	}
 	free_map_arr(map);
@@ -79,7 +79,7 @@ long **add_row(long **arr, int old_rows, int new_cols)
 	long **new_arr;
 	int i;
 
-	new_arr = malloc(sizeof(int *) * (old_rows + 1));
+	new_arr = malloc(sizeof(long *) * (old_rows + 2));
 	if (!new_arr)
 		return (NULL);
 	i = 0;
@@ -88,9 +88,10 @@ long **add_row(long **arr, int old_rows, int new_cols)
 		new_arr[i] = arr[i];
 		i++;
 	}
-	new_arr[old_rows] = malloc(sizeof(int) * new_cols);
+	new_arr[old_rows] = malloc(sizeof(long) * new_cols);
 	if (!new_arr[old_rows])
 		return (free(new_arr), NULL);
+	new_arr[old_rows + 1] = NULL;
 	free(arr);
 	return (new_arr);
 }
@@ -112,4 +113,14 @@ void free_raw(char ***raw)
     }
     free(tmp);
     *raw = NULL;
+}
+
+void free_fd(char *line, int fd)
+{
+	while (line)
+	{
+		free(line);
+		line = get_next_line(fd);
+	}
+	close (fd);
 }
