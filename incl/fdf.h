@@ -6,7 +6,7 @@
 /*   By: atoepper <atoepper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 14:12:50 by atoepper          #+#    #+#             */
-/*   Updated: 2025/10/30 17:06:22 by atoepper         ###   ########.fr       */
+/*   Updated: 2025/12/05 15:51:14 by atoepper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,8 @@ int		free_fail(char *line, int fd);
 void	free_map_arr(t_map *map);
 void 	free_raw(char ***raw);
 long	**add_row(long **arr, int old_rows, int new_cols);
+void 	free_fd(char *line, int fd);
+
 
 /* init */
 void	get_height_color(t_map *map, char *raw);
@@ -156,10 +158,13 @@ void	set_default(t_map *map);
 void	set_vector(t_vec *v, double x, double y, double z);
 
 /* utils */
-void	print_2d_arr(long **arr);
+void	print_2d_arr(long **arr, size_t x, size_t y);
 int		arr_size(char **arr);
 
 /* parse */
+bool	is_numeric(char *s);
+bool	is_color(char *s);
+int		get_color(char *s);
 // int			read_map(int fd, t_map *map);
 // int			parse_line(char *line);
 // bool		parse_digit(char *s, unsigned *i);
