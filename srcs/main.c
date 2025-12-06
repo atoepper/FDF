@@ -6,7 +6,7 @@
 /*   By: atoepper <atoepper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:07:13 by atoepper          #+#    #+#             */
-/*   Updated: 2025/12/06 14:10:22 by atoepper         ###   ########.fr       */
+/*   Updated: 2025/12/06 14:40:27 by atoepper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,19 +68,20 @@ int	main(int argc, char **argv)
 	if (parse_map(fd, &map) == FAILURE)
 		return(free_map(&map), EXIT_FAILURE);
 	ft_printf("Parsing successful\n");
+	/* Debug printing */
 	print_map(&map);
 	ft_printf("heights\n");
 	print_2d_arr(map.h, map.max.x, map.max.y);
 	ft_printf("colors\n");
 	print_2d_arr(map.col, map.max.x, map.max.y);
-	free_map(&map);
+	/* mlx and main loop */
+	if (fdf(&map) == FAILURE)
+	{
+		ft_putendl_fd("Window's creation failed", 2);
+		free_map(&map);
+		return (free_map(&map), EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }
 	
 	
-	// if (fdf(&map) == FAILURE)
-	// {
-	// 	ft_putendl_fd("Window's creation failed", 2);
-	// 	free_map(&map);
-	// 	return (free_map(&map), EXIT_FAILURE);
-	// }
