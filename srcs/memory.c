@@ -6,7 +6,7 @@
 /*   By: atoepper <atoepper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:37:29 by atoepper          #+#    #+#             */
-/*   Updated: 2025/12/05 14:47:56 by atoepper         ###   ########.fr       */
+/*   Updated: 2025/12/06 10:28:16 by atoepper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ void	free_map(t_map *map)
 	if (map->raw)
 		free(map->raw);
 	i = -1;
+	print_map(map);
 	while (++i < map->max.y)
 	{
+		ft_printf("Debug free i: %d\n", i);
 		if (map->proj != NULL && map->proj[i])
 			free(map->proj[i]);
 		if (map->h != NULL && map->h[i])
@@ -40,6 +42,7 @@ void	free_map(t_map *map)
 	}
 	free_map_arr(map);
 }
+
 
 // int	malloc_map(t_map *map)
 // {
@@ -63,16 +66,16 @@ void	free_map(t_map *map)
 // 	return (1);
 // }
 
-int	free_fail(char *line, int fd)
-{
-	while (line)
-	{
-		free(line);
-		line = get_next_line(fd);
-	}
-	close(fd);
-	return (0);
-}
+// int	free_fail(char *line, int fd)
+// {
+// 	while (line)
+// 	{
+// 		free(line);
+// 		line = get_next_line(fd);
+// 	}
+// 	close(fd);
+// 	return (0);
+// }
 
 long **add_row(long **arr, int old_rows, int new_cols)
 {
