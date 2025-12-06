@@ -6,7 +6,7 @@
 #    By: atoepper <atoepper@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 14:47:59 by atoepper          #+#    #+#              #
-#    Updated: 2025/10/30 16:56:22 by atoepper         ###   ########.fr        #
+#    Updated: 2025/12/06 14:34:00 by atoepper         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,8 @@ SRC = calculus.c \
 		colors.c \
 		colors_basic.c \
 		drawing.c \
+		error.c \
+		endmap.c \
 		fdf.c \
 		hooks_2.c \
 		hooks.c \
