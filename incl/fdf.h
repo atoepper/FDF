@@ -6,7 +6,7 @@
 /*   By: atoepper <atoepper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 14:12:50 by atoepper          #+#    #+#             */
-/*   Updated: 2025/12/06 10:27:26 by atoepper         ###   ########.fr       */
+/*   Updated: 2025/12/06 14:10:10 by atoepper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ typedef struct	s_argb
 
 typedef struct s_img
 {
-	void	*mlx;
-	void	*win;
 	void	*mlx_img;
 	char	*addr;
 	int		bpp;
@@ -69,7 +67,9 @@ typedef struct s_vec
 
 typedef struct s_map
 {
-	t_img	img;
+	void	*mlx;
+	void	*win;
+	t_img	*img_map;
 	char	*raw;
 	short	max_z;
 	short	min_z;

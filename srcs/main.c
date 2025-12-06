@@ -6,7 +6,7 @@
 /*   By: atoepper <atoepper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:07:13 by atoepper          #+#    #+#             */
-/*   Updated: 2025/12/06 14:05:11 by atoepper         ###   ########.fr       */
+/*   Updated: 2025/12/06 14:10:22 by atoepper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,11 @@ static int	open_file(int argc, char **argv)
 	return (fd);
 }
 
-static void init_map(t_map *map)
+static void bzero_map(t_map *map)
 {
+	map->mlx = NULL;
+	map->win = NULL;
+	map->img_map = NULL;
 	map->max_z = 0;
 	map->min_z = 0;
 	map->max.x = 0;
@@ -60,7 +63,7 @@ int	main(int argc, char **argv)
 	ft_printf("Open file...\n");
 	fd = open_file(argc, argv);
 	ft_printf("Initialize map...\n");
-	init_map(&map);
+	bzero_map(&map);
 	ft_printf("Parse file...\n");
 	if (parse_map(fd, &map) == FAILURE)
 		return(free_map(&map), EXIT_FAILURE);
