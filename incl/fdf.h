@@ -6,7 +6,7 @@
 /*   By: atoepper <atoepper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 14:12:50 by atoepper          #+#    #+#             */
-/*   Updated: 2025/12/06 14:10:10 by atoepper         ###   ########.fr       */
+/*   Updated: 2025/12/06 14:47:15 by atoepper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,10 +126,14 @@ void	put_pixel(t_img img, int x, int y, int color);
 void	draw_line(t_img img, t_vec a, t_vec b);
 void	draw_map(t_img img, t_map *map);
 
+/* error */
+void	exit_on_error(t_map *map, char *str);
+
+/* endmap */
+void	cleanup(t_map *map);
+
 /* hooks */
-int		key_hook(int k, t_map *map);
-int		handle_no_event(void *map);
-void	ch_scale_xy(int k, t_map *map);
+void	set_hooks(t_map *map);
 
 /* calculus */
 double	rot_rect_h(double alpha, double length, double width);
