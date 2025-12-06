@@ -6,7 +6,7 @@
 /*   By: atoepper <atoepper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 11:49:18 by atoepper          #+#    #+#             */
-/*   Updated: 2025/10/30 17:03:05 by atoepper         ###   ########.fr       */
+/*   Updated: 2025/12/06 14:46:30 by atoepper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,3 +100,40 @@
 // 	mlx_put_image_to_window(map->img.mlx, map->img.win, map->img.mlx_img, 0, 0);
 // 	return (0);
 // }
+
+int	close_window(t_map *map)
+{
+	cleanup(map);
+	exit(EXIT_SUCCESS);
+	return (0);
+}
+
+int	main_loop(t_map *map)
+{
+	(void)map;
+	// static double	timestamp = 0;
+	// static double	timestamp_move = 0;
+
+	// if (get_timestamp() - timestamp_move > 1.0 / (double)data->sps)
+	// {
+	// 	move(data);
+	// 	rotate(data);
+	// 	timestamp_move = get_timestamp();
+	// }
+	// if (get_timestamp() - timestamp > 1.0 / (double)data->fps)
+	// {
+	// 	clear_window(data);
+	// 	update_window(data);
+	// 	timestamp = get_timestamp();
+	// }
+	return (SUCCESS);
+}
+
+void	set_hooks(t_map *map)
+{
+	mlx_hook(map->win, DestroyNotify, StructureNotifyMask,
+		&close_window, map);
+	// mlx_hook(data->win, KeyRelease, KeyReleaseMask, &key_release, data);
+	// mlx_hook(data->win, KeyPress, KeyPressMask, &key_press, data);
+	mlx_loop_hook(map->mlx, &main_loop, map);
+}
