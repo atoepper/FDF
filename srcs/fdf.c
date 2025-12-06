@@ -6,7 +6,7 @@
 /*   By: atoepper <atoepper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 11:49:22 by atoepper          #+#    #+#             */
-/*   Updated: 2025/10/30 17:03:23 by atoepper         ###   ########.fr       */
+/*   Updated: 2025/12/06 14:51:36 by atoepper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,41 +31,34 @@
 // 			&map->img.line_length, &map->img.endian);
 // }
 
-// int	start_mlx(t_map *map)
-// {
-// 	map->img.mlx = mlx_init();
-// 	if (map->img.mlx == NULL)
-// 		return (-1);
-// 	map->img.win = mlx_new_window(map->img.mlx,
-// 			WIDTH, HEIGHT, "FdF - a 3D project");
-// 	if (map->img.win == NULL)
-// 		return (-1);
-// 	map->img.mlx_img = mlx_new_image(map->img.mlx, WIDTH, HEIGHT);
-// 	if (map->img.mlx_img == NULL)
-// 		return (-1);
-// 	map->img.addr = mlx_get_data_addr(map->img.mlx_img, &map->img.bpp,
-// 			&map->img.line_length, &map->img.endian);
-// 	return (0);
-// }
+void	create_window(t_map *map)
+{
+	map->win = mlx_new_window(map->mlx,
+			WIDTH, HEIGHT, "FDF - A wireframe model");
+	if (map->win == NULL)
+		exit_on_error(map, "Window creation failed");
+}
 
-// void	set_hooks(t_map *map)
-// {
-// 	mlx_loop_hook(map->img.mlx, &handle_no_event, map);
-// 	mlx_hook(map->img.win, DestroyNotify, StructureNotifyMask,
-// 		&close_window, map);
-// 	mlx_key_hook(map->img.win, key_hook, map);
-// }
+int	start_mlx(t_map *map)
+{
+	map->mlx = mlx_init();
+	if (map->mlx == NULL)
+		exit_on_error(map, "Mlx creation failed");
+	return (SUCCESS);
+}
 
-// int	fdf(t_map *map)
-// {
-// 	if (start_mlx(map) == -1)
-// 		return (-1);
-// 	// init_map(map);
-// 	// draw_map(map->img, map);
+int	fdf(t_map *map)
+{
+	(void)map;
+	start_mlx(map);
+	// init_map(map);
+	// draw_map(map->img, map);
 
-// 	put_pixel(map->img, WIDTH/2, HEIGHT/2, create_trgb(0, 255, 0, 0));
-// 	mlx_put_image_to_window(map->img.mlx, map->img.win, map->img.mlx_img, 0, 0);
-// 	set_hooks(map);
-// 	mlx_loop(map->img.mlx);
-// 	return (0);
-// }
+	// put_pixel(map->img, WIDTH/2, HEIGHT/2, create_trgb(0, 255, 0, 0));
+	// mlx_put_image_to_window(map->img.mlx, map->img.win, map->img.mlx_img, 0, 0);
+	create_window(map);
+	set_hooks(map);
+	mlx_loop(map->mlx);
+	// cleanup(map);
+	return (0);
+}
