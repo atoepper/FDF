@@ -6,7 +6,7 @@
 /*   By: atoepper <atoepper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 11:49:18 by atoepper          #+#    #+#             */
-/*   Updated: 2025/12/06 14:46:30 by atoepper         ###   ########.fr       */
+/*   Updated: 2025/12/08 12:52:39 by atoepper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,32 +100,101 @@
 // 	mlx_put_image_to_window(map->img.mlx, map->img.win, map->img.mlx_img, 0, 0);
 // 	return (0);
 // }
+/*  to be adapted */
+
+/* static void	move_with_key(int k, t_game *data)
+{
+	if (k == 'a')
+		data->move.xmove = 0.01;
+	else if (k == 'd')
+		data->move.xmove = -0.01;
+	if (k == 'w')
+		data->move.ymove = 0.01;
+	else if (k == 's')
+		data->move.ymove = -0.01;
+}
+
+*/
+
+/* ready */
+
+void	move_map(t_map *map)
+{
+	/* change rotation angle */
+	map->rot.z += map->mov.z_rotate * PI / 10;
+	if (map->rot.z >= PI * 2)
+		map->rot.z -= PI * 2;
+	map->rot.x += map->mov.x_rotate * PI / 10;
+	if (map->rot.x >= PI * 2)
+		map->rot.x -= PI * 2;
+	/* change zoom */
+	/* change dilatation */
+}
+
+int	key_release(int k, t_map *map)
+{
+	(void)k;
+	(void)map;
+	// if (k == 'a')
+	// 	map->mov.xmove = 0;
+	// else if (k == 'd')
+	// 	map->mov.xmove = 0;
+	// if (k == 'w')
+	// 	map->mov.ymove = 0;
+	// else if (k == 's')
+	// 	map->mov.ymove = 0;
+	if (k == XK_Left)
+		map->mov.z_rotate = 0;
+	else if (k == XK_Right)
+		map->mov.z_rotate = 0;
+	if (k == XK_Up)
+		map->mov.x_rotate = 0;
+	else if (k == XK_Down)
+		map->mov.x_rotate = 0;
+	// if (k == XK_space)
+	// 	data->speed = 1;
+	return (0);
+}
+
+int	key_press(int k, t_map *map)
+{
+	if (k == XK_Escape && map->mlx)
+		close_window(map);
+	// if (k == 'a' || k == 'd' || k == 'w' || k == 's')
+	// 	move_with_key(k, map);
+	if (k == XK_Left)
+		map->mov.z_rotate = -1;
+	else if (k == XK_Right)
+		map->mov.z_rotate = 1;
+	if (k == XK_Up)
+		map->mov.x_rotate = -1;
+	else if (k == XK_Down)
+		map->mov.x_rotate = 1;
+	// if (k == XK_space)
+	// 	data->speed = 2;
+	return (SUCCESS);
+}
 
 int	close_window(t_map *map)
 {
 	cleanup(map);
 	exit(EXIT_SUCCESS);
-	return (0);
+	return (SUCCESS);
 }
 
 int	main_loop(t_map *map)
 {
 	(void)map;
-	// static double	timestamp = 0;
-	// static double	timestamp_move = 0;
+	static double	timestamp = 0;
 
-	// if (get_timestamp() - timestamp_move > 1.0 / (double)data->sps)
-	// {
-	// 	move(data);
-	// 	rotate(data);
-	// 	timestamp_move = get_timestamp();
-	// }
-	// if (get_timestamp() - timestamp > 1.0 / (double)data->fps)
-	// {
-	// 	clear_window(data);
-	// 	update_window(data);
-	// 	timestamp = get_timestamp();
-	// }
+	if (get_timestamp() - timestamp > 1.0 /* frames per second */)
+	{
+		move_map(map);
+		// printf("rotation z: %f\n", map->rot.z);
+		// clear_window(map);
+		// update_window(map);
+		timestamp = get_timestamp();
+	}
 	return (SUCCESS);
 }
 
@@ -133,7 +202,7 @@ void	set_hooks(t_map *map)
 {
 	mlx_hook(map->win, DestroyNotify, StructureNotifyMask,
 		&close_window, map);
-	// mlx_hook(data->win, KeyRelease, KeyReleaseMask, &key_release, data);
-	// mlx_hook(data->win, KeyPress, KeyPressMask, &key_press, data);
+	mlx_hook(map->win, KeyRelease, KeyReleaseMask, &key_release, map);
+	mlx_hook(map->win, KeyPress, KeyPressMask, &key_press, map);
 	mlx_loop_hook(map->mlx, &main_loop, map);
 }
