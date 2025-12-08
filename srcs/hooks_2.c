@@ -6,17 +6,11 @@
 /*   By: atoepper <atoepper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 16:46:49 by atoepper          #+#    #+#             */
-/*   Updated: 2024/04/29 17:09:40 by atoepper         ###   ########.fr       */
+/*   Updated: 2025/12/08 14:34:47 by atoepper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/fdf.h"
-
-int	handle_no_event(void *map)
-{
-	(void) map;
-	return (0);
-}
 
 void	ch_scale_xy(int k, t_map *map)
 {
