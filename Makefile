@@ -6,12 +6,12 @@
 #    By: atoepper <atoepper@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 14:47:59 by atoepper          #+#    #+#              #
-#    Updated: 2025/12/06 14:34:00 by atoepper         ###   ########.fr        #
+#    Updated: 2025/12/08 14:38:44 by atoepper         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC      = gcc -O2
-FLAGS  = -Wall -Wextra -Werror -g
+# CC      = gcc -O2
+# FLAGS  = -Wall -Wextra -Werror -g
 
 ### EXECUTABLE ###
 NAME   = fdf
@@ -30,18 +30,20 @@ SRC = calculus.c \
 		hooks.c \
 		init.c \
 		memory.c \
-		parse.c \
 		parse_map.c \
+		parse_utils.c \
 		projection.c \
+		render_map.c \
 		utils.c \
 		vector.c \
+		time.c \
 		main.c 
 SRC := $(patsubst %.c, $(SRC_DIR)/%.c, $(SRC))
 
 ### COMPILATION ###
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-CFLAGS += -g -fPIE 
+CFLAGS += -g  
 CFLAGS += -I$(LIBFT_DIR) -I$(INC_DIR)
 
 ### INCLUDES ###

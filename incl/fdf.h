@@ -6,7 +6,7 @@
 /*   By: atoepper <atoepper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 14:12:50 by atoepper          #+#    #+#             */
-/*   Updated: 2025/12/06 14:47:15 by atoepper         ###   ########.fr       */
+/*   Updated: 2025/12/08 14:43:49 by atoepper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <stdio.h>
 # include <sys/types.h>
 # include <sys/stat.h>
+# include <sys/time.h>
 # include <fcntl.h>
 # include <stdbool.h>
 
@@ -65,6 +66,14 @@ typedef struct s_vec
 	long	color;
 }				t_vec;
 
+typedef struct s_move
+{
+	double	xmove;
+	double	ymove;
+	int		z_rotate;
+	int		x_rotate;
+}				t_move;
+
 typedef struct s_map
 {
 	void	*mlx;
@@ -74,6 +83,7 @@ typedef struct s_map
 	short	max_z;
 	short	min_z;
 	t_index	max;
+	t_move	mov;
 	t_vec	zoom;
 	t_vec	rot;
 	t_vec	offset;
@@ -84,31 +94,12 @@ typedef struct s_map
 	bool	colored;
 }				t_map;
 
-
-// typedef struct s_map
-// {
-// 	t_img	img;
-// 	char	*raw;
-// 	t_index	max;
-// 	short	max_z;
-// 	short	min_z;
-// 	t_vec	zoom;
-// 	t_vec	rot;
-// 	t_vec	offset;
-// 	t_vec	center;
-// 	t_vec	**transf;
-// 	t_vec	**proj;
-// 	double	**h;
-// 	long	**col;
-// 	long	**col_mod;
-// 	bool	colored;
-// }				t_map;
-
-
-/* fdf */
-int		close_window(t_map *map);
-int		fdf(t_map *map);
-void	clear_window(t_map *map);
+/* calculus */
+double	rot_rect_h(double alpha, double length, double width);
+double	hypotenuse(double a, double b);
+int		difx(t_vec a, t_vec b);
+int		dify(t_vec a, t_vec b);
+int		ft_round(double x);
 
 /* colors_basic */
 int		get_t(int trgb);
@@ -124,7 +115,6 @@ int		gradient(float x, float y, t_vec a, t_vec b);
 /* drawing */
 void	put_pixel(t_img img, int x, int y, int color);
 void	draw_line(t_img img, t_vec a, t_vec b);
-void	draw_map(t_img img, t_map *map);
 
 /* error */
 void	exit_on_error(t_map *map, char *str);
@@ -132,57 +122,50 @@ void	exit_on_error(t_map *map, char *str);
 /* endmap */
 void	cleanup(t_map *map);
 
+/* fdf */
+int		close_window(t_map *map);
+int		fdf(t_map *map);
+void	clear_window(t_map *map);
+
 /* hooks */
 void	set_hooks(t_map *map);
 
-/* calculus */
-double	rot_rect_h(double alpha, double length, double width);
-double	hypotenuse(double a, double b);
-int		difx(t_vec a, t_vec b);
-int		dify(t_vec a, t_vec b);
-int		ft_round(double x);
+/* init */
+int		init_map(t_map *map);
 
 /* memory */
-int		malloc_map(t_map *map);
 void	free_map(t_map *map);
-int		free_fail(char *line, int fd);
 void	free_map_arr(t_map *map);
 void 	free_raw(char ***raw);
 long	**add_row(long **arr, int old_rows, int new_cols);
 void 	free_fd(char *line, int fd);
 
+/* parse_map */
+int 	parse_map (int fd, t_map *map);
 
-/* init */
-void	get_height_color(t_map *map, char *raw);
-long	get_colors(t_map *map, char **raw);
-// int		init_map(t_map *map);
-void	set_default(t_map *map);
+/* parse_utils */
+bool	is_numeric(char *s);
+bool	is_color(char *s);
+int		get_color(char *s);
 
-/* vector */
-void	set_vector(t_vec *v, double x, double y, double z);
+/* projection */
+int		project_map(t_map *map);
+
+/* render_map */
+void	draw_map(t_img img, t_map *map);
+
+/* test */
+void	print_map(t_map *map);
+
+/* time */
+double	get_timestamp(void);
 
 /* utils */
 void	print_2d_arr(long **arr, size_t x, size_t y);
 int		arr_size(char **arr);
 void	print_map(t_map *map);
 
-/* parse */
-bool	is_numeric(char *s);
-bool	is_color(char *s);
-int		get_color(char *s);
-// int			read_map(int fd, t_map *map);
-// int			parse_line(char *line);
-// bool		parse_digit(char *s, unsigned *i);
-// bool		parse_color(char *s, unsigned *i);
-
-/* parse_map */
-int 	parse_map (int fd, t_map *map);
-
-/* projection */
-int		transformation(t_map *map);
-t_vec	rot(t_vec vec, t_vec rot, t_vec offset, t_vec zoom);
-
-/* test */
-void	print_map(t_map *map);
+/* vector */
+void	set_vector(t_vec *v, double x, double y, double z);
 
 #endif
