@@ -6,7 +6,7 @@
 /*   By: atoepper <atoepper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 14:12:01 by atoepper          #+#    #+#             */
-/*   Updated: 2024/04/29 13:36:49 by atoepper         ###   ########.fr       */
+/*   Updated: 2025/12/08 14:32:03 by atoepper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,22 +83,4 @@ void	draw_line(t_img img, t_vec a, t_vec b)
 		small_slope(img, a, b);
 	else
 		big_slope(img, a, b);
-}
-
-void	draw_map(t_img img, t_map *map)
-{
-	t_index	i;
-
-	i.y = -1;
-	while (++i.y < map->max.y)
-	{
-		i.x = -1;
-		while (++i.x < map->max.x)
-		{
-			if (i.y < map->max.y - 1)
-				draw_line(img, map->proj[i.y][i.x], map->proj[i.y + 1][i.x]);
-			if (i.x < map->max.x - 1)
-				draw_line(img, map->proj[i.y][i.x], map->proj[i.y][i.x + 1]);
-		}
-	}
 }
