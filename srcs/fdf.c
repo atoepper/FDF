@@ -6,30 +6,11 @@
 /*   By: atoepper <atoepper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 11:49:22 by atoepper          #+#    #+#             */
-/*   Updated: 2025/12/06 14:51:36 by atoepper         ###   ########.fr       */
+/*   Updated: 2025/12/08 13:16:22 by atoepper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/fdf.h"
-
-// int	close_window(t_map *map)
-// {
-// 	mlx_destroy_image(map->img.mlx, map->img.mlx_img);
-// 	mlx_destroy_window(map->img.mlx, map->img.win);
-// 	mlx_destroy_display(map->img.mlx);
-// 	free(map->img.mlx);
-// 	free_map(map);
-// 	exit (0);
-// 	return (0);
-// }
-
-// void	clear_window(t_map *map)
-// {
-// 	mlx_destroy_image(map->img.mlx, map->img.mlx_img);
-// 	map->img.mlx_img = mlx_new_image(map->img.mlx, WIDTH, HEIGHT);
-// 	map->img.addr = mlx_get_data_addr(map->img.mlx_img, &map->img.bpp,
-// 			&map->img.line_length, &map->img.endian);
-// }
 
 void	create_window(t_map *map)
 {
@@ -51,7 +32,7 @@ int	fdf(t_map *map)
 {
 	(void)map;
 	start_mlx(map);
-	// init_map(map);
+	init_map(map);
 	// draw_map(map->img, map);
 
 	// put_pixel(map->img, WIDTH/2, HEIGHT/2, create_trgb(0, 255, 0, 0));
