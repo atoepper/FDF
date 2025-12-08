@@ -6,7 +6,7 @@
 /*   By: atoepper <atoepper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:07:13 by atoepper          #+#    #+#             */
-/*   Updated: 2025/12/06 14:40:27 by atoepper         ###   ########.fr       */
+/*   Updated: 2025/12/08 14:36:57 by atoepper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,35 +35,14 @@ static int	open_file(int argc, char **argv)
 	return (fd);
 }
 
-static void bzero_map(t_map *map)
-{
-	map->mlx = NULL;
-	map->win = NULL;
-	map->img_map = NULL;
-	map->max_z = 0;
-	map->min_z = 0;
-	map->max.x = 0;
-	map->max.y = 0;
-	set_vector(&map->zoom, 0, 0, 0);
-	set_vector(&map->rot, 0, 0, 0);
-	set_vector(&map->offset, 0, 0, 0);
-	set_vector(&map->center, 0, 0, 0);
-	map->raw = NULL;
-	map->proj = NULL;
-	map->h = NULL;
-	map->col = NULL;
-	map->colored = false;
-}
-
 int	main(int argc, char **argv)
 {
 	int		fd;
 	t_map	map;
-
+	
 	ft_printf("Open file...\n");
 	fd = open_file(argc, argv);
-	ft_printf("Initialize map...\n");
-	bzero_map(&map);
+	ft_bzero(&map, sizeof(map));
 	ft_printf("Parse file...\n");
 	if (parse_map(fd, &map) == FAILURE)
 		return(free_map(&map), EXIT_FAILURE);
@@ -75,6 +54,7 @@ int	main(int argc, char **argv)
 	ft_printf("colors\n");
 	print_2d_arr(map.col, map.max.x, map.max.y);
 	/* mlx and main loop */
+	ft_printf("Initialize map...\n");
 	if (fdf(&map) == FAILURE)
 	{
 		ft_putendl_fd("Window's creation failed", 2);
@@ -83,5 +63,3 @@ int	main(int argc, char **argv)
 	}
 	return (EXIT_SUCCESS);
 }
-	
-	
