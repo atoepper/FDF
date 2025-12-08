@@ -1,6 +1,6 @@
 #include "../incl/fdf.h"
 
-int	add_rows_to_map(t_map *map, size_t len)
+static int	add_rows_to_map(t_map *map, size_t len)
 {
 	map->h = add_row(map->h, map->max.y, len);
 	map->col = add_row(map->col, map->max.y, len);
