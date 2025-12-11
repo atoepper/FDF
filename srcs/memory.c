@@ -6,7 +6,7 @@
 /*   By: atoepper <atoepper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:37:29 by atoepper          #+#    #+#             */
-/*   Updated: 2025/12/08 14:37:17 by atoepper         ###   ########.fr       */
+/*   Updated: 2025/12/11 12:33:31 by atoepper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ void	free_map(t_map *map)
 	free_map_arr(map);
 }
 
-long **add_row(long **arr, int old_rows, int new_cols)
+long	**add_row(long **arr, int old_rows, int new_cols)
 {
-	long **new_arr;
-	int i;
+	long	**new_arr;
+	int		i;
 
 	new_arr = malloc(sizeof(long *) * (old_rows + 2));
 	if (!new_arr)
@@ -63,31 +63,30 @@ long **add_row(long **arr, int old_rows, int new_cols)
 	return (new_arr);
 }
 
-void free_raw(char ***raw)
+void	free_raw(char ***raw)
 {
-    int i;
-    char **tmp;
+	int		i;
+	char	**tmp;
 
-    if (!raw || !*raw)
-        return;
-
-    tmp = *raw;
-    i = 0;
-    while (tmp[i])
-    {
-        free(tmp[i]);
-        tmp[i++] = NULL;
-    }
-    free(tmp);
-    *raw = NULL;
+	if (!raw || !*raw)
+		return ;
+	tmp = *raw;
+	i = 0;
+	while (tmp[i])
+	{
+		free(tmp[i]);
+		tmp[i++] = NULL;
+	}
+	free(tmp);
+	*raw = NULL;
 }
 
-void free_fd(char *line, int fd)
+void	free_fd(char *line, int fd)
 {
 	while (line)
 	{
 		free(line);
 		line = get_next_line(fd);
 	}
-	close (fd);
+	close(fd);
 }
