@@ -6,7 +6,7 @@
 /*   By: atoepper <atoepper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 14:12:50 by atoepper          #+#    #+#             */
-/*   Updated: 2025/12/08 14:43:49 by atoepper         ###   ########.fr       */
+/*   Updated: 2025/12/11 13:41:54 by atoepper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct s_move
 	double	ymove;
 	int		z_rotate;
 	int		x_rotate;
+	int		zoom;
 }				t_move;
 
 typedef struct s_map
@@ -113,25 +114,31 @@ int		add_shade(double shade, int color);
 int		gradient(float x, float y, t_vec a, t_vec b);
 
 /* drawing */
-void	put_pixel(t_img img, int x, int y, int color);
-void	draw_line(t_img img, t_vec a, t_vec b);
+void	put_pixel(t_img *img, int x, int y, int color);
+void	draw_line(t_img *img, t_vec a, t_vec b);
 
 /* error */
 void	exit_on_error(t_map *map, char *str);
 
 /* endmap */
 void	cleanup(t_map *map);
+int		close_window(t_map *map);
 
 /* fdf */
-int		close_window(t_map *map);
 int		fdf(t_map *map);
 void	clear_window(t_map *map);
+t_img	*create_image(t_map *map, int width, int height);
+int		start_mlx(t_map *map);
 
 /* hooks */
 void	set_hooks(t_map *map);
+void	move_map(t_map *map);
 
 /* init */
 int		init_map(t_map *map);
+
+/* loop */
+int	main_loop(t_map *map);
 
 /* memory */
 void	free_map(t_map *map);
@@ -152,7 +159,8 @@ int		get_color(char *s);
 int		project_map(t_map *map);
 
 /* render_map */
-void	draw_map(t_img img, t_map *map);
+void	draw_map(t_img *img, t_map *map);
+void	update_window(t_map *map);
 
 /* test */
 void	print_map(t_map *map);
@@ -167,5 +175,6 @@ void	print_map(t_map *map);
 
 /* vector */
 void	set_vector(t_vec *v, double x, double y, double z);
+void	print_vector(t_vec v);
 
 #endif
