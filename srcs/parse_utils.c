@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atoepper <atoepper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 11:49:14 by atoepper          #+#    #+#             */
-/*   Updated: 2025/12/06 13:59:30 by atoepper         ###   ########.fr       */
+/*   Updated: 2025/12/11 12:27:04 by atoepper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 bool	is_numeric(char *s)
 {
 	if (!s || *s == '\0')
-		return false;
+		return (false);
 	if (*s == '+' || *s == '-')
 		s++;
 	if (*s == '\0')
-		return false;
+		return (false);
 	while (*s)
 	{
 		if (*s < '0' || *s > '9')
-		return false;
+			return (false);
 		s++;
-	}		
-	return true;
+	}
+	return (true);
 }
 
 bool	is_color(char *s)
@@ -35,9 +35,9 @@ bool	is_color(char *s)
 
 	numlen = ft_strlen(s);
 	if (numlen < 4 || numlen > 8)
-		return false;
+		return (false);
 	if (ft_strncmp(s, "0x", 2) != 0)
-		return false;
+		return (false);
 	s += 2;
 	while (*s)
 	{
@@ -48,7 +48,7 @@ bool	is_color(char *s)
 	return (true);
 }
 
-int		get_color(char *s)
+int	get_color(char *s)
 {
 	s += 2;
 	return (ft_hextoi(s, 6));
