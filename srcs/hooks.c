@@ -6,7 +6,7 @@
 /*   By: atoepper <atoepper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 11:49:18 by atoepper          #+#    #+#             */
-/*   Updated: 2025/12/11 13:44:03 by atoepper         ###   ########.fr       */
+/*   Updated: 2025/12/11 14:37:21 by atoepper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,43 +26,34 @@ static void	move_with_key(int k, t_map *map)
 
 void	move_map(t_map *map)
 {
-	map->rot.z += map->mov.z_rotate * PI / 10;
+	map->rot.z += map->mov.z_rotate * PI / 100;
 	if (map->rot.z >= PI * 2)
 		map->rot.z -= PI * 2;
-	map->rot.x += map->mov.x_rotate * PI / 10;
+	map->rot.x += map->mov.x_rotate * PI / 100;
 	if (map->rot.x >= PI * 2)
 		map->rot.x -= PI * 2;
-	map->offset.x += map->mov.xmove;
-	map->offset.y += map->mov.ymove;
-	map->zoom.x += map->mov.zoom;
-	map->zoom.y += map->mov.zoom;
-	// map->zoom.z += map->mov.zoom;
+	map->offset.x += 5 * map->mov.xmove;
+	map->offset.y += 5 * map->mov.ymove;
+	map->zoom.z *= 1 + map->mov.zscale;
+	map->zoom.x *= map->mov.zoom;
+	map->zoom.y *= map->mov.zoom;
+	map->zoom.z *= map->mov.zoom;
 }
 
 int	key_release(int k, t_map *map)
 {
-	(void)k;
-	(void)map;
-	if (k == 'a')
+	if (k == 'a' || k == 'd')
 		map->mov.xmove = 0;
-	else if (k == 'd')
-		map->mov.xmove = 0;
-	if (k == 'w')
+	if (k == 'w' || k == 's')
 		map->mov.ymove = 0;
-	else if (k == 's')
-		map->mov.ymove = 0;
-	if (k == XK_Left)
+	if (k == XK_Left || k == XK_Right)
 		map->mov.z_rotate = 0;
-	else if (k == XK_Right)
-		map->mov.z_rotate = 0;
-	if (k == XK_Up)
+	if (k == XK_Up || k == XK_Down)
 		map->mov.x_rotate = 0;
-	else if (k == XK_Down)
-		map->mov.x_rotate = 0;
-	if (k == '-')
-		map->mov.zoom = 0;
-	else if (k == '=')
-		map->mov.zoom = 0;
+	if (k == '-' || k == '=')
+		map->mov.zoom = 1;
+	if (k == XK_Page_Up || k == XK_Page_Down)
+		map->mov.zscale = 0;
 	return (0);
 }
 
@@ -81,9 +72,13 @@ int	key_press(int k, t_map *map)
 	else if (k == XK_Down)
 		map->mov.x_rotate = -1;
 	if (k == '-')
-		map->mov.zoom = -1;
+		map->mov.zoom = 0.95;
 	else if (k == '=')
-		map->mov.zoom = 1;
+		map->mov.zoom = 1.05;
+	if (k == XK_Page_Up)
+		map->mov.zscale = 0.05;
+	else if (k == XK_Page_Down)
+		map->mov.zscale = -0.05;
 	return (SUCCESS);
 }
 
