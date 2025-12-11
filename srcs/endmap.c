@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   endmap.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: atoepper <atoepper@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/11 12:30:55 by atoepper          #+#    #+#             */
+/*   Updated: 2025/12/11 12:39:46 by atoepper         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/fdf.h"
 
 static void	clean_image(t_map *map, t_img *img)
@@ -23,4 +35,11 @@ void	cleanup(t_map *map)
 		free(map->mlx);
 	}
 	free_map(map);
+}
+
+int	close_window(t_map *map)
+{
+	cleanup(map);
+	exit(EXIT_SUCCESS);
+	return (SUCCESS);
 }
