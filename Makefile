@@ -6,7 +6,7 @@
 #    By: atoepper <atoepper@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 14:47:59 by atoepper          #+#    #+#              #
-#    Updated: 2025/12/08 14:38:44 by atoepper         ###   ########.fr        #
+#    Updated: 2025/12/11 12:41:37 by atoepper         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,9 +26,9 @@ SRC = calculus.c \
 		error.c \
 		endmap.c \
 		fdf.c \
-		hooks_2.c \
 		hooks.c \
 		init.c \
+		loop.c \
 		memory.c \
 		parse_map.c \
 		parse_utils.c \
