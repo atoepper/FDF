@@ -6,24 +6,24 @@
 /*   By: atoepper <atoepper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 14:12:01 by atoepper          #+#    #+#             */
-/*   Updated: 2025/12/08 14:32:03 by atoepper         ###   ########.fr       */
+/*   Updated: 2025/12/11 11:22:05 by atoepper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/fdf.h"
 
-void	put_pixel(t_img img, int x, int y, int color)
+void	put_pixel(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
 	if (x >= 0 && x <= WIDTH && y >= 0 && y <= HEIGHT)
 	{
-		dst = img.addr + (y * img.line_length + x * (img.bpp / 8));
+		dst = img->addr + (y * img->line_length + x * (img->bpp / 8));
 		*(int *)dst = color;
 	}
 }
 
-static void	small_slope(t_img img, t_vec a, t_vec b)
+static void	small_slope(t_img *img, t_vec a, t_vec b)
 {
 	int	p;
 	int	i;
@@ -50,7 +50,7 @@ static void	small_slope(t_img img, t_vec a, t_vec b)
 	}
 }
 
-static void	big_slope(t_img img, t_vec a, t_vec b)
+static void	big_slope(t_img *img, t_vec a, t_vec b)
 {
 	int	p;
 	int	i;
@@ -77,7 +77,7 @@ static void	big_slope(t_img img, t_vec a, t_vec b)
 	}
 }
 
-void	draw_line(t_img img, t_vec a, t_vec b)
+void	draw_line(t_img *img, t_vec a, t_vec b)
 {
 	if (abs(difx(a, b)) > abs(dify(a, b)))
 		small_slope(img, a, b);
