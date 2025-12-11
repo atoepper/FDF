@@ -6,7 +6,7 @@
 /*   By: atoepper <atoepper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 14:12:50 by atoepper          #+#    #+#             */
-/*   Updated: 2025/12/11 13:41:54 by atoepper         ###   ########.fr       */
+/*   Updated: 2025/12/11 14:42:04 by atoepper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@
 # define HEIGHT 1080
 # define WIDTH	1920
 
-# define PI 3.141592
+# define PI		3.141592
 
-typedef struct	s_argb
+typedef struct s_argb
 {
 	float		a;
 	float		r;
@@ -72,7 +72,8 @@ typedef struct s_move
 	double	ymove;
 	int		z_rotate;
 	int		x_rotate;
-	int		zoom;
+	double	zoom;
+	double	zscale;
 }				t_move;
 
 typedef struct s_map
@@ -138,17 +139,17 @@ void	move_map(t_map *map);
 int		init_map(t_map *map);
 
 /* loop */
-int	main_loop(t_map *map);
+int		main_loop(t_map *map);
 
 /* memory */
 void	free_map(t_map *map);
 void	free_map_arr(t_map *map);
-void 	free_raw(char ***raw);
+void	free_raw(char ***raw);
 long	**add_row(long **arr, int old_rows, int new_cols);
-void 	free_fd(char *line, int fd);
+void	free_fd(char *line, int fd);
 
 /* parse_map */
-int 	parse_map (int fd, t_map *map);
+int		parse_map(int fd, t_map *map);
 
 /* parse_utils */
 bool	is_numeric(char *s);
