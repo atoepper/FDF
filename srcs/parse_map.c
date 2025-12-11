@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: atoepper <atoepper@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/11 12:44:23 by atoepper          #+#    #+#             */
+/*   Updated: 2025/12/11 12:47:43 by atoepper         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/fdf.h"
 
 static int	add_rows_to_map(t_map *map, size_t len)
@@ -9,9 +21,9 @@ static int	add_rows_to_map(t_map *map, size_t len)
 	return (SUCCESS);
 }
 
-static int parse_token(t_map *map, char **raw, int pos)
+static int	parse_token(t_map *map, char **raw, int pos)
 {
-	char **token;
+	char	**token;
 
 	if (!raw)
 		return (FAILURE);
@@ -23,21 +35,21 @@ static int parse_token(t_map *map, char **raw, int pos)
 	else
 		return (free_raw(&token), FAILURE);
 	if (arr_size(token) == 1)
-		map->col[map->max.y  - 1][pos - 1] = 0;
-	else if (arr_size(token) == 2) 
+		map->col[map->max.y - 1][pos - 1] = 0xffffff;
+	else if (arr_size(token) == 2)
 	{
 		if (is_color(token[1]))
-			map->col[map->max.y  - 1][pos - 1] = get_color(token[1]);
+			map->col[map->max.y - 1][pos - 1] = get_color(token[1]);
 		else
 			return (free_raw(&token), FAILURE);
 	}
 	if (arr_size(token) > 2)
 		return (free_raw(&token), FAILURE);
 	free_raw(&token);
-	return(SUCCESS);
+	return (SUCCESS);
 }
 
-static int check_line_len(t_map *map, int len)
+static int	check_line_len(t_map *map, int len)
 {
 	if ((map->max.x != 0 && map->max.x != len))
 	{
@@ -51,17 +63,18 @@ static int check_line_len(t_map *map, int len)
 	return (SUCCESS);
 }
 
-static int parse_line(char *line, t_map *map)
+static int	parse_line(char *line, t_map *map)
 {
 	char	**raw;
 	int		len;
+
 	raw = ft_split(line, ' ');
 	if (!raw)
 		return (ft_putstr_fd("Fatal error in ft_split\n", 2), FAILURE);
 	len = arr_size(raw);
-	if (check_line_len(map, len) == FAILURE || 
-		add_rows_to_map(map, len) == FAILURE)
-			return (free_raw(&raw), FAILURE);
+	if (check_line_len(map, len) == FAILURE
+		|| add_rows_to_map(map, len) == FAILURE)
+		return (free_raw(&raw), FAILURE);
 	map->max.y++;
 	while (len > 0)
 	{
@@ -75,7 +88,7 @@ static int parse_line(char *line, t_map *map)
 	return (SUCCESS);
 }
 
-int parse_map (int fd, t_map *map)
+int	parse_map(int fd, t_map *map)
 {
 	char	*line;
 	char	*trimmed;
@@ -88,7 +101,7 @@ int parse_map (int fd, t_map *map)
 		{
 			free(trimmed);
 			free_fd(line, fd);
-			return(FAILURE);
+			return (FAILURE);
 		}
 		free(trimmed);
 		free(line);
