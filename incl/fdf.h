@@ -6,7 +6,7 @@
 /*   By: atoepper <atoepper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 14:12:50 by atoepper          #+#    #+#             */
-/*   Updated: 2025/12/11 14:42:04 by atoepper         ###   ########.fr       */
+/*   Updated: 2025/12/11 14:48:31 by atoepper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,7 @@ double	get_timestamp(void);
 /* utils */
 void	print_2d_arr(long **arr, size_t x, size_t y);
 int		arr_size(char **arr);
-void	print_map(t_map *map);
+// void	print_map(t_map *map);
 
 /* vector */
 void	set_vector(t_vec *v, double x, double y, double z);
