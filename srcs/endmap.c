@@ -6,7 +6,7 @@
 /*   By: atoepper <atoepper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 12:30:55 by atoepper          #+#    #+#             */
-/*   Updated: 2025/12/11 12:39:46 by atoepper         ###   ########.fr       */
+/*   Updated: 2025/12/11 14:46:44 by atoepper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	clean_image(t_map *map, t_img *img)
 
 void	cleanup(t_map *map)
 {
-	printf("\ndo cleanup\n");
+	ft_printf("Clear and close window...\n");
 	clean_image(map, map->img_map);
 	if (map->win)
 		mlx_destroy_window(map->mlx, map->win);
