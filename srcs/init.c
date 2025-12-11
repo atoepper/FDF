@@ -6,7 +6,7 @@
 /*   By: atoepper <atoepper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:39:19 by atoepper          #+#    #+#             */
-/*   Updated: 2025/12/08 14:51:56 by atoepper         ###   ########.fr       */
+/*   Updated: 2025/12/11 12:48:55 by atoepper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,22 @@ static void	import_colors(t_map *map)
 {
 	t_index	i;
 
+	i.y = -1;
 	while (++i.y < map->max.y)
 	{
 		i.x = -1;
 		while (++i.x < map->max.x)
-			map->proj[i.y][i.x].z = map->col[i.y][i.x];
-	}	
+			map->proj[i.y][i.x].color = map->col[i.y][i.x];
+	}
 }
 
 static void	calculate_default_zoom(t_map *map)
 {
+	map->zoom.x = 50;
+	map->zoom.y = 50;
+	map->zoom.z = 5;
 	// h = rot_rect_h(PI / 4, map->max.x, map->max.y);
 	/* calculate zoom factor */
-	
 	// map->zoom.x = (HEIGHT - 50) / h;
 	// if (map->zoom.x * hypotenuse(map->max.x, map->max.y)
 	// 	> WIDTH - hypotenuse(map->max.x, map->max.y))
@@ -38,8 +41,6 @@ static void	calculate_default_zoom(t_map *map)
 
 static void	set_default(t_map *map)
 {
-	double	h;
-
 	map->center.x = WIDTH / 2;
 	map->center.y = HEIGHT / 2;
 	map->center.z = 0;
@@ -68,8 +69,6 @@ static void	malloc_projection(t_map *map)
 
 int	init_map(t_map *map)
 {
-	t_index	i;
-
 	malloc_projection(map);
 	set_default(map);
 	import_colors(map);
