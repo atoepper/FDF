@@ -6,7 +6,7 @@
 /*   By: atoepper <atoepper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:07:13 by atoepper          #+#    #+#             */
-/*   Updated: 2025/12/08 14:36:57 by atoepper         ###   ########.fr       */
+/*   Updated: 2025/12/11 12:29:10 by atoepper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	open_file(int argc, char **argv)
 {
-	int fd;
+	int	fd;
 
 	if (argc != 2)
 	{
@@ -39,22 +39,14 @@ int	main(int argc, char **argv)
 {
 	int		fd;
 	t_map	map;
-	
+
 	ft_printf("Open file...\n");
 	fd = open_file(argc, argv);
 	ft_bzero(&map, sizeof(map));
 	ft_printf("Parse file...\n");
 	if (parse_map(fd, &map) == FAILURE)
-		return(free_map(&map), EXIT_FAILURE);
+		return (free_map(&map), EXIT_FAILURE);
 	ft_printf("Parsing successful\n");
-	/* Debug printing */
-	print_map(&map);
-	ft_printf("heights\n");
-	print_2d_arr(map.h, map.max.x, map.max.y);
-	ft_printf("colors\n");
-	print_2d_arr(map.col, map.max.x, map.max.y);
-	/* mlx and main loop */
-	ft_printf("Initialize map...\n");
 	if (fdf(&map) == FAILURE)
 	{
 		ft_putendl_fd("Window's creation failed", 2);
