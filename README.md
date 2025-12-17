@@ -108,3 +108,4 @@ During the main loop that runs with a chosen value for frames per second, calcul
 
 ## 📜 License
 This project is part of the 42 School curriculum and is intended for educational purposes only.
+
